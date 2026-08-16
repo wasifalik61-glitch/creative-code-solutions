@@ -258,7 +258,9 @@ function App() {
               <p>Have an idea for software, an existing system that needs improvement, or an automation project? Send us the requirements.</p>
               <div className="contact-details">
                 <a href="mailto:creativecode514@gmail.com"><Mail/> creativecode514@gmail.com</a>
-                <a href="https://wa.me/923452151512" target="_blank" rel="noreferrer"><MessageCircle/> WhatsApp: 0345-2151512</a>
+                <a href="https://wa.me/923702775010" target="_blank" rel="noreferrer"><MessageCircle/> WhatsApp: 03702775010 </a>
+            <a href="https://www.instagram.com/creative_code_solutions/"target="_blank"rel="noreferrer">Instagram: @creative_code_solutions </a>
+            <a href="https://www.linkedin.com/company/creative-code-solutions250/"target="_blank"rel="noreferrer">LinkedIn: Creative Code Solutions </a>
               </div>
             </div>
 
@@ -295,7 +297,10 @@ function App() {
           <div>
             <h4>Contact</h4>
             <p><a href="mailto:creativecode514@gmail.com">creativecode514@gmail.com</a></p>
-            <p><a href="https://wa.me/923452151512" target="_blank" rel="noreferrer">0345-2151512</a></p>
+            <p><a href="https://wa.me/923702775010" target="_blank" rel="noreferrer"><MessageCircle/> WhatsApp: 03702775010 </a></p>
+            <p><a href="https://www.instagram.com/creative_code_solutions/"target="_blank"rel="noreferrer">Instagram: @creative_code_solutions </a></p>
+            <p><a href="https://www.linkedin.com/company/creative-code-solutions250/"target="_blank"rel="noreferrer">LinkedIn: Creative Code Solutions </a></p>
+
           </div>
         </div>
         <div className="container footer-bottom">
