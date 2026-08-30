@@ -17,7 +17,7 @@ React + Vite website for Creative Code Solutions.
 - About / Why Us
 - Contact form
 - Email: creativecode514@gmail.com
-- WhatsApp: 0345-2151512
+- WhatsApp: 03702775010
 - Responsive mobile navigation
 - GitHub Pages compatible
 

@@ -4,7 +4,9 @@ import {
   ArrowRight, Bot, Building2, CheckCircle2, ChevronRight, Code2,
   Database, Factory, GraduationCap, Hospital, Laptop, Mail, Menu,
   MessageCircle, Package, Phone, ShieldCheck, Sparkles, Users, Workflow, X,
-  BarChart3, Smartphone, Settings2
+  BarChart3, Smartphone, Settings2,
+  InstagramIcon, LinkedinIcon,
+  ChevronLeft, Maximize2
 } from "lucide-react";
 import "./styles.css";
 
@@ -53,23 +55,53 @@ const services = [
   }
 ];
 
-const solutions = [
-  ["ERP Solution", "Centralize finance, inventory, purchasing, sales and business operations.", Building2],
-  ["HRM Solution", "Manage employees, attendance, leave, payroll workflows and performance.", Users],
-  ["CRM Solution", "Manage leads, customers, sales pipelines, follow-ups and communication.", MessageCircle],
-  ["School Management", "Digitize admissions, students, teachers, attendance, exams and fees.", GraduationCap],
-  ["Hospital Management", "Manage patients, doctors, appointments, billing and clinical workflows.", Hospital],
-  ["Inventory Management", "Track products, suppliers, purchases, sales, stock and reports.", Package]
-];
-
 const technologies = [
   "React", "C#", ".NET", "ASP.NET Core", "Python", "FastAPI",
   "SQL Server", "MongoDB", "OpenCV", "YOLO", "n8n", "REST API"
 ];
 
+// Portfolio Data Array
+const portfolioProjects = [
+  {
+    title: "AI Maintenance System",
+    category: "AI & INDUSTRIAL AUTOMATION",
+    icon: Factory,
+    image: "./ai-maintenance.png.png",
+    text: "Computer vision workflow for defect detection, Machine Maintenance, Inspection history, Breakdowns and Reporting.",
+    tech: "Python • YOLO • OpenCV • .NET • React"
+  },
+  {
+    title: "Enterprise & Inventory System",
+    category: "ERP",
+    icon: Building2,
+    image: "./erp-system.jpg.jpeg",
+    text: "Dashboard, Stock, Inventory, Suppliers, Purchase Order, Billing and Profile Sales.",
+    tech: "C# • .NET • SQL Server • React"
+  },
+  {
+    title: "School Management System",
+    category: "EDUCATION & LMS",
+    icon: GraduationCap,
+    image: "./school-system.png.png",
+    text: "Student, teacher, attendance, examination, fee and administration modules.",
+    tech: "ASP.NET Core • SQL Server • React"
+  },
+  {
+    title: "Human Resource Management System",
+    category: "BUSINESS HRM",
+    icon: Users,
+    image: "./hrm-system.png.png",
+    text: "Employees, Attendance Tracking, Department, Payroll Performance, and Reports.",
+    tech: "React • .NET • SQL Server"
+  }
+];
+
 function App() {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", service: "", message: "" });
+  
+  // Lightbox State
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
   const go = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -87,6 +119,20 @@ function App() {
     window.location.href = `mailto:creativecode514@gmail.com?subject=${subject}&body=${body}`;
   };
 
+  // Slideshow Functions
+  const openLightbox = (index) => setLightboxIndex(index);
+  const closeLightbox = () => setLightboxIndex(null);
+  
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) => (prev + 1) % portfolioProjects.length);
+  };
+  
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setLightboxIndex((prev) => (prev === 0 ? portfolioProjects.length - 1 : prev - 1));
+  };
+
   return (
     <div className="site">
       <header className="header">
@@ -98,7 +144,6 @@ function App() {
           <nav className={open ? "nav-links show" : "nav-links"}>
             <button className="active" onClick={() => go("home")}>Home</button>
             <button onClick={() => go("services")}>Services</button>
-            <button onClick={() => go("solutions")}>Solutions</button>
             <button onClick={() => go("technologies")}>Technologies</button>
             <button onClick={() => go("portfolio")}>Portfolio</button>
             <button onClick={() => go("about")}>About Us</button>
@@ -193,22 +238,6 @@ function App() {
           </div>
         </section>
 
-        <section id="solutions" className="section dark-section">
-          <div className="container">
-            <SectionHeading eyebrow="BUSINESS SOLUTIONS" title="Solutions Built for Real Work" text="Choose a starting point and customize it around your organization's workflow." />
-            <div className="solution-grid">
-              {solutions.map(([title, desc, Icon]) => (
-                <article className="solution-card" key={title}>
-                  <div className="solution-icon"><Icon/></div>
-                  <h3>{title}</h3>
-                  <p>{desc}</p>
-                  <button onClick={() => go("contact")}>Request Solution <ArrowRight size={15}/></button>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
         <section id="technologies" className="section tech-section">
           <div className="container tech-wrap">
             <div>
@@ -224,12 +253,21 @@ function App() {
 
         <section id="portfolio" className="section portfolio-section">
           <div className="container">
-            <SectionHeading eyebrow="OUR WORK" title="Featured Solutions" text="Examples of the types of systems we can design and develop." />
+            <SectionHeading eyebrow="OUR WORK" title="Featured Solutions" text="Click on any project to view full software screenshots." />
+            
             <div className="portfolio-grid">
-              <Project title="AI Industrial Quality Analyzer" category="AI / INDUSTRIAL" icon={Factory} text="Computer vision workflow for defect detection, quality grading, inspection history and reporting." tech="Python • YOLO • OpenCV • .NET • React"/>
-              <Project title="School Management System" category="EDUCATION / LMS" icon={GraduationCap} text="Student, teacher, attendance, examination, fee and administration modules." tech="ASP.NET Core • SQL Server • React"/>
-              <Project title="Hospital Management System" category="HEALTHCARE" icon={Hospital} text="Patient registration, doctors, appointments, queues, billing and reporting." tech="C# • .NET • SQL Server • React"/>
-              <Project title="Business ERP / CRM / HRM" category="BUSINESS" icon={Building2} text="Connected business operations, customers, employees, inventory, sales and reports." tech="React • .NET • SQL Server"/>
+              {portfolioProjects.map((proj, index) => (
+                <Project 
+                  key={proj.title}
+                  title={proj.title} 
+                  category={proj.category} 
+                  icon={proj.icon} 
+                  image={proj.image}
+                  text={proj.text} 
+                  tech={proj.tech}
+                  onClick={() => openLightbox(index)}
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -259,8 +297,8 @@ function App() {
               <div className="contact-details">
                 <a href="mailto:creativecode514@gmail.com"><Mail/> creativecode514@gmail.com</a>
                 <a href="https://wa.me/923702775010" target="_blank" rel="noreferrer"><MessageCircle/> WhatsApp: 03702775010 </a>
-            <a href="https://www.instagram.com/creative_code_solutions/"target="_blank"rel="noreferrer">Instagram: @creative_code_solutions </a>
-            <a href="https://www.linkedin.com/company/creative-code-solutions250/"target="_blank"rel="noreferrer">LinkedIn: Creative Code Solutions </a>
+            <a href="https://www.instagram.com/creative_code_solutions/"target="_blank"rel="noreferrer"><InstagramIcon/> Instagram: @creative_code_solutions </a>
+            <a href="https://www.linkedin.com/company/creative-code-solutions250/"target="_blank"rel="noreferrer"><LinkedinIcon/> LinkedIn: Creative Code Solutions </a>
               </div>
             </div>
 
@@ -272,7 +310,12 @@ function App() {
               <label>Service
                 <select value={form.service} onChange={(e) => update("service", e.target.value)}>
                   <option value="">Select a service</option>
-                  {services.map((s) => <option key={s.title}>{s.title}</option>)}
+                  <option value="Custom Software Development">Custom Software Development</option>
+                  <option value="ERP, HRM & CRM">ERP, HRM & CRM</option>
+                  <option value="AI Industrial Automation">AI Industrial Automation</option>
+                  <option value="School Management Systems">School Management Systems</option>
+                  <option value="Hospital Management System">Hospital Management System</option>
+                  <option value="Website & App Development">Website & App Development</option>
                 </select>
               </label>
               <label>Project Details
@@ -287,7 +330,7 @@ function App() {
 
       <footer>
         <div className="container footer-top">
-          <div className="footer-logo"><img src="/logo.png" alt="Creative Code Solutions"/></div>
+          <div className="footer-logo"><img src="./logo.png1.png" alt="Creative Code Solutions"/></div>
           <div>
             <h4>Services</h4>
             <p>Custom Software • SaaS • ERP • HRM • CRM</p>
@@ -297,10 +340,9 @@ function App() {
           <div>
             <h4>Contact</h4>
             <p><a href="mailto:creativecode514@gmail.com">creativecode514@gmail.com</a></p>
-            <p><a href="https://wa.me/923702775010" target="_blank" rel="noreferrer"><MessageCircle/> WhatsApp: 03702775010 </a></p>
+            <p><a href="https://wa.me/923702775010" target="_blank" rel="noreferrer">WhatsApp: 03702775010 </a></p>
             <p><a href="https://www.instagram.com/creative_code_solutions/"target="_blank"rel="noreferrer">Instagram: @creative_code_solutions </a></p>
             <p><a href="https://www.linkedin.com/company/creative-code-solutions250/"target="_blank"rel="noreferrer">LinkedIn: Creative Code Solutions </a></p>
-
           </div>
         </div>
         <div className="container footer-bottom">
@@ -308,6 +350,26 @@ function App() {
           <span>Software Solutions & Consultant</span>
         </div>
       </footer>
+
+      {/* FULL SCREEN SLIDESHOW MODAL */}
+      {lightboxIndex !== null && (
+        <div className="lightbox" onClick={closeLightbox}>
+          <button className="lightbox-close" onClick={closeLightbox}><X size={35} /></button>
+          
+          <button className="lightbox-prev" onClick={prevImage}><ChevronLeft size={45} /></button>
+          
+          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <img src={portfolioProjects[lightboxIndex].image} alt="Software Screenshot Preview" />
+            <div className="lightbox-caption">
+              <h3>{portfolioProjects[lightboxIndex].title}</h3>
+              <p>{portfolioProjects[lightboxIndex].category}</p>
+            </div>
+          </div>
+
+          <button className="lightbox-next" onClick={nextImage}><ChevronRight size={45} /></button>
+        </div>
+      )}
+      
     </div>
   );
 }
@@ -326,10 +388,30 @@ function Stat({ value, label, icon: Icon }) {
   return <div className="stat"><Icon/><div><b>{value}</b><span>{label}</span></div></div>;
 }
 
-function Project({ title, category, icon: Icon, text, tech }) {
+// Project component ab onClick support karta hai aur Hover effect ke sath hai
+function Project({ title, category, icon: Icon, text, tech, image, onClick }) {
   return (
-    <article className="project">
-      <div className="project-art"><div className="project-grid"></div><Icon/></div>
+    <article className="project clickable-project" onClick={onClick}>
+      <div className="project-art">
+        {image ? (
+          <>
+            <img 
+              src={image} 
+              alt={title} 
+              style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }} 
+            />
+            <div className="img-overlay">
+              <Maximize2 size={28}/>
+              <span>View Full</span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="project-grid"></div>
+            <Icon/>
+          </>
+        )}
+      </div>
       <div className="project-info"><span>{category}</span><h3>{title}</h3><p>{text}</p><small>{tech}</small></div>
     </article>
   );
